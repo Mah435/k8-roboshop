@@ -24,4 +24,24 @@ spec:
       containers:
       - name: mongodb
         image: vumahesh435/mongodb:k8
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: roboshop
+  labels: 
+    app: mongodb
+    tier: DB
+    project: roboshop
+spec:
+  selector:
+    app: mongodb
+    tier: DB
+    project: roboshop
+  ports:
+  - name: mongo-port
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
         
