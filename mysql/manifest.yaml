@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: mysql-conf
 data: 
-  MYSQL_ALLOW_EMPTY_PASSWORD: yes
+  MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   MYSQL_DATABASE: cities
   MYSQL_USER: shipping
   MYSQL_PASSWORD: secret
