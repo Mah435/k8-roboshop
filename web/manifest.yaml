@@ -124,13 +124,13 @@ spec:
         tier: web
         project: roboshop
     spec:
-     volumes:
+      volumes:
       - name: nginx-conf
         configMap:
           name: nginx-conf
           items:
-            - key: nginx.conf
-              path: nginx.conf
+          - key: nginx.conf
+            path: nginx.conf
       containers:
       - name: web
         imagePullPolicy: Always
