@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-conf
+data: 
+  MYSQL_ALLOW_EMPTY_PASSWORD: yes
+  MYSQL_DATABASE: cities
+  MYSQL_USER: shipping
+  MYSQL_PASSWORD: secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: roboshop
+  labels:
+    app: mysql
+    tier: DB
+    project: roboshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      tier: DB
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        app: mysql
+        tier: DB
+        project: roboshop
+    spec:
+      containers:
+      - name: mysql
+        image: vumahesh435/mysql:k8
+        envFrom:
+        - configMapRef:
+            name: mysql-conf
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: roboshop
+  labels: 
+    app: mysql
+    tier: DB
+    project: roboshop
+spec:
+  selector:
+    app: mysql
+    tier: DB
+    project: roboshop
+  ports:
+  - name: mysql-port
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+        
